@@ -32,6 +32,17 @@
             cursor: pointer;
             text-transform: uppercase;
             font-weight: bold;
+            &:hover{
+                background-color: indianred;
+                cursor: pointer;
+            }
+            &:disabled{
+                background-color: gray;
+                border: 1px solid gray;
+                &:hover{
+                    cursor: not-allowed;
+                }
+            }
         }
         .input{
             padding: 10px;

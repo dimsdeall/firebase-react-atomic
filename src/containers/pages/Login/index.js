@@ -1,15 +1,33 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { actionUserName } from '../../../config/redux/action'
 
 class Login extends Component {
+
+    changeUser = () => {
+        this.props.changeUsername()
+    }
+
     render() {
         return (
             <div>
-                <p>Login Page</p>
-                <button>Register</button>
+                <p>Login Page {this.props.username}</p>
+                <button onClick={this.changeUser} >Change Username</button>
                 <button>Dashboard</button>
             </div>
         )
     }
 }
 
-export default Login
+
+const reduxState = (state) => (
+    {
+        popupProps: state.popup,
+        username: state.user
+    })
+
+const reduxDispatch = (dispatch) => ({
+    changeUsername: () => dispatch(actionUserName())
+})
+
+export default connect(reduxState, reduxDispatch)(Login)
