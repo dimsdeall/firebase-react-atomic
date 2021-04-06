@@ -26,7 +26,7 @@ function Register() {
                 <input className="input"
                     onChange={(e) => setEmail(e.target.value)} placeholder="Email" type="email"  value={email}/>
                 <input className="input"
-                    onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
+                    onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" value={password} />
                 <Buttom onClick={btnSubmit} title="Register" loading={isLoading} />
             </div>
         </div>

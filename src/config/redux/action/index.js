@@ -26,3 +26,31 @@ export const registerAPI = (data, dispatch) => {
 
     }
 }
+
+export const LoginAPI = (data, dispatch) => {
+    return () => {
+        return new Promise((resolve, reject) => {
+            firebase.auth().signInWithEmailAndPassword(data.email, data.password)
+                .then((userCredential) => {
+                    console.log('Success');
+                    const dataUser = {
+                        email: userCredential.user.email,
+                        uid: userCredential.user.uid,
+                        emailVerified: userCredential.user.emailVerified
+                    }
+
+                    dispatch({ type: 'CHANGE_LOADING', value: false })
+                    dispatch({ type: 'CHANGE_ISLOGIN', value: true })
+                    dispatch({ type: 'CHANGE_USER', value: dataUser })
+                    resolve(true)
+                })
+                .catch((error) => {
+                    console.log(error);
+                    dispatch({ type: 'CHANGE_LOADING', value: false })
+                    dispatch({ type: 'CHANGE_ISLOGIN', value: false })
+                    reject(false)
+
+                })
+        })
+    }
+}
