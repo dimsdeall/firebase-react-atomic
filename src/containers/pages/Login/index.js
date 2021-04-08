@@ -17,12 +17,12 @@ function Login() {
         dispatch({ type: 'CHANGE_LOADING', value: true })
         let res = await dispatch(LoginAPI({ email, password }, dispatch)).catch(err => err)
 
-        console.log(res);
-
         if (res) {
+            localStorage.setItem('userData',JSON.stringify(res))
             setEmail('')
             setPassword('')
             history.push('/')
+            console.log(res);
         }
     }
 
