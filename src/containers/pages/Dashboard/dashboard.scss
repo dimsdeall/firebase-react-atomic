@@ -44,6 +44,20 @@
             text-transform: uppercase;
             outline: none;
             cursor: pointer;
+            margin: 2px 2px;
+            &.batal {
+                border: 2px solid maroon;
+                color: maroon;
+            }
+            &.delete {
+                border: 2px solid red;
+                color: red;
+            }
+        }
+
+        .action-wrapper {
+            display: flex;
+            justify-content: center;
         }
     }
     .card-content {
@@ -52,6 +66,12 @@
         padding: 16px;
         box-shadow: 4px 3px 9px rgba(0, 0, 0, 0.1);
         margin-bottom: 16px;
+        transition: all ease;
+        &:hover {
+            cursor: pointer;
+            transform: translateY(-5px);
+            background-color: wheat;
+        }
         .p {
             margin: 0px;
         }

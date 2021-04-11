@@ -2,9 +2,9 @@ const initialState = {
     popup : false,
     isLogin : false, 
     isLoading : false,
-    user : {
-        
-    }
+    user : {},
+    notes : []
+
 }
 
 const reducer = (state = initialState, action) =>{
@@ -33,6 +33,13 @@ const reducer = (state = initialState, action) =>{
         return {
             ...state,
             isLoading: action.value
+        }
+    }
+
+    if (action.type === 'CHANGE_NOTE') {
+        return {
+            ...state,
+            notes: action.value
         }
     }
 

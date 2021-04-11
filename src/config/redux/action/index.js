@@ -56,12 +56,68 @@ export const LoginAPI = (data, dispatch) => {
     }
 }
 
-export const addDataAPI = (data, dispatch) => {
+export const addDataAPI = (data) => {
     return () => {
         database.ref('/notes/' + data.user.uid).push({
             title: data.title,
             content: data.content,
             date: data.date
+        })
+    }
+}
+
+export const getDataFirebase = (userId, dispatch) => {
+    return () => {
+        return new Promise((resolve) => {
+            const starCountRef = database.ref('notes/' + userId)
+            starCountRef.on('value', function (snapshot) {
+                //Supaya berurutan id [untuk lazy load]
+                const data = [];
+                Object.keys(snapshot.val()).map(key => {
+                    return data.push({
+                        id: key,
+                        data: snapshot.val()[key]
+                    })
+                })
+
+                dispatch({ type: 'CHANGE_NOTE', value: data })
+                resolve(data);
+            })
+        })
+    }
+}
+
+export const updateDataFirebase = (userId, postId, data) => {
+    return () => {
+        return new Promise((resolve, reject) => {
+            const updateRef = database.ref(`notes/${userId}/${postId}`)
+            updateRef.set({
+                title: data.title,
+                content: data.content,
+                date: data.date
+            }, (err) => {
+                if (err) {
+                    reject(false)
+                }else{
+                    resolve(true)
+                }
+            })
+            
+        })
+    }
+}
+
+export const deleteDataFirebase =(userId, postId) =>{
+    return () => {
+        return new Promise((resolve, reject) => {
+            const deleteRef = database.ref(`notes/${userId}/${postId}`)
+            deleteRef.remove()
+            .then(res => {
+                resolve(true)
+            })
+            .catch(err => {
+                reject(false)
+            })
         })
     }
 }

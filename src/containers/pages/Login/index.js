@@ -22,7 +22,6 @@ function Login() {
             setEmail('')
             setPassword('')
             history.push('/')
-            console.log(res);
         }
     }
 
